@@ -45,7 +45,7 @@ for(auto z : _products){
 
 
 std::ostream& operator<<(std::ostream& ost, const Order& order) {
-  ost<< "Customer in line " << "\n"<< order._customer <<"\n";
+  ost<< "Customer in line " << "\n"<< *order._customer<<"\n";
   
     for (auto t : order._products)
 {

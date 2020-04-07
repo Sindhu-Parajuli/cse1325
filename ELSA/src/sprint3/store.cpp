@@ -7,7 +7,7 @@ Store::Store(){}
 
 Store::Store(std::istream& ist){
 
-    
+    try {
 
     int n1,n2,n3,n4;
     ist >> n1; ist.ignore(32767, '\n');
@@ -23,13 +23,16 @@ Store::Store(std::istream& ist){
     while(n4--) orders.push_back(Order(ist));
 
 
-   
+  } catch (std::exception& e) {
+            cout << "Standard exception: " << e.what() << endl;
+        } 
 
 
 }
 
 void Store::save(std::ostream& ost){
 
+try{
 ost << customers.size() << '\n';
 for(auto x: customers){
 	x.save(ost);
@@ -47,6 +50,9 @@ for(auto z1 : orders){
  z1.save(ost);
 }
 
+ } catch (std::exception& e) {
+            cout << "Standard exception: " << e.what() << endl;
+        } 
 
 }
 

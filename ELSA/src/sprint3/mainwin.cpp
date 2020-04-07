@@ -157,7 +157,9 @@ Mainwin::~Mainwin() { }
 
 void Mainwin::on_new_store_click() 
 {
+ 
  store = new Store();
+ 
 }
 
 void Mainwin::on_save_as_click() {

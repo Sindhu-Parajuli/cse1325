@@ -9,13 +9,16 @@ Store::Store(std::istream& ist){
 
     try {
 
-    int n1,n2,n3,n4;
+    int n1,n2,n3,n4,n;
     ist >> n1; ist.ignore(32767, '\n');
     while(n1--) customers.push_back(Customer(ist));
     
     ist >> n2; ist.ignore(32767, '\n');
      //while(n2--) options.push_back(&ist);
     while(n2--) options.push_back(new Ram(ist));
+
+    ist >> n; ist.ignore(32767, '\n');
+    while(n--) options.push_back(new Options(ist));
     
     ist >> n3; ist.ignore(32767, '\n');
     while(n3--) desktops.push_back(Desktop(ist));

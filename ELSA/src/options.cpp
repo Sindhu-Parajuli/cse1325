@@ -6,6 +6,7 @@
 #include "desktop.h"
 #include "order.h"
 #include "Ram.h"
+#include "Cpu.h"
 
 Options::Options(std::string name, double cost)
     : _name{name}, _cost{cost} {}
@@ -44,10 +45,6 @@ void Options::save(std::ostream& ost) const{
  ost << std::to_string(_cost) << std::endl; 
 
 }
-
-
-
-
 
 std::ostream& operator<<(std::ostream& ost, const Options& options){
 	ost << options.to_string();

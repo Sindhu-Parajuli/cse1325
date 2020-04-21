@@ -12,7 +12,7 @@ class Options{
 public:
  
  Options(std::string name, double cost);
-~Options();
+virtual ~Options();
 double cost();
 
 virtual std::string to_string() const;

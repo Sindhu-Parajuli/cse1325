@@ -115,6 +115,11 @@ Gtk::MenuItem *menuitem_pheral = Gtk::manage(new Gtk::MenuItem("_RAM", true));
     menuitem_pheral->signal_activate().connect([this] {this->on_ram_click();});
     enu->append(*menuitem_pheral);
 
+Gtk::MenuItem *menuitem_phe = Gtk::manage(new Gtk::MenuItem("_CPU", true));
+    menuitem_phe->signal_activate().connect([this] {this->on_cpu_click();});
+    enu->append(*menuitem_phe);
+
+
 Gtk::MenuItem *menuitem_periphera = Gtk::manage(new Gtk::MenuItem("_Other", true));
     menuitem_periphera->signal_activate().connect([this] {this->on_other_click();});
     enu->append(*menuitem_periphera);
@@ -340,56 +345,152 @@ msg->set_text("New Peripherals Added!");
 */    
 }
 
+void Mainwin::on_cpu_click()
+{ 
+
+/*
+ Gtk::Dialog dialog{"ADD CPU", *this};
+
+    Gtk::Grid grid;
+
+    Gtk::Label l_name{"Name of CPU"};
+    Gtk::Entry e_name;
+    grid.attach(l_name, 0, 0, 1, 1);
+    grid.attach(e_name, 1, 0, 2, 1);
+
+
+    Gtk::Label l_price{"Cost of CPU"};
+    Gtk::Entry e_price;
+    grid.attach(l_price, 0, 1, 1, 1);
+    grid.attach(e_price, 1, 1, 2, 1);
+
+    Gtk::Label l_gb{"Memory in gb"};
+    Gtk::Entry e_gb;
+    grid.attach(l_gb, 0, 2, 1, 1);
+    grid.attach(e_gb, 1, 2, 2, 1);
+
+dialog.get_content_area()->add(grid);
+
+    dialog.add_button("Insert",Gtk::RESPONSE_OK );
+    dialog.add_button("Cancel", Gtk::RESPONSE_CANCEL);
+    int response;
+
+    dialog.show_all();
+
+    while((response = dialog.run()) == Gtk::RESPONSE_OK) {
+
+        if (e_name.get_text().size() == 0) {e_name.set_text("*required*"); continue;}
+        if (e_price.get_text().size() == 0) {e_price.set_text("*required*"); continue;}
+        if (e_gb.get_text().size() == 0) {e_gb.set_text("*required*"); continue;}
+
+
+ Options *me = new Cpu{e_name.get_text(), price, gb};
+
+    this->store->add_option(*me);
+     
+     data->set_text(std::to_string(this->store->num_options())+ "  "+ "CPU Added");
+msg->set_text("New CPU Added!");
+break;
+
+}
+*/
+}
+
 
 void Mainwin::on_ram_click()
 {
-
-EntryDialog edialog{*this, "What's the part you want to buy?"};
-	edialog.set_text("Type Name here");
-	edialog.run();
-	std::string name = edialog.get_text() + " ";
-
-
-EntryDialog edialog2{*this, "Please enter cost of price" };
-  edialog2.run();
-  std::string newprice = edialog2.get_text();
-  double price = std::stod(newprice);
-
-
-EntryDialog edialog3{*this, "Please enter memory of RAM" };
-  edialog3.run();
-  std::string gbs = edialog3.get_text();
-  int gb  = std::stoi(gbs);
-
-
-Options *me = new Ram(name,price,gb);
-     try {
-                 this->store->add_option(*me);  
-                } catch(std::exception& e) {
-                    std::cerr << "#### INVALID OPTION ####\n\n";
-                }
+   double cost;
+    int gb;
+  Gtk::Dialog dialog{"Add Ram", *this};
+    Gtk::Grid grid;
+    Gtk::Label l_name{"Name"};
+    Gtk::Entry e_name;
+    grid.attach(l_name, 0, 0, 1, 1);
+    grid.attach(e_name, 1, 0, 2, 1);
+    
+    Gtk::Label l_cost{"Cost"};
+    Gtk::Entry e_cost;
+    grid.attach(l_cost, 0, 1, 1, 1);
+    grid.attach(e_cost, 1, 1, 2, 1);
+    
+    Gtk::Label l_size{"Size in GB"};
+    Gtk::Entry e_size;
+    grid.attach(l_size, 0, 2, 1, 1);
+    grid.attach(e_size, 1, 2, 2, 1);
+    
+    dialog.get_content_area()->add(grid);
+    
+    dialog.add_button("Insert", Gtk::RESPONSE_OK);
+    dialog.add_button("Cancel", Gtk::RESPONSE_CANCEL);
+    
+    dialog.show_all();
     
     
-     
-data->set_text("Number of peripherals added are " + std::to_string(this->store->num_options()));
-msg->set_text("New Peripherals Added!");
-   
+    while (dialog.run() == Gtk::RESPONSE_OK){
+    
+       if (e_name.get_text().size() == 0) {e_name.set_text("*required*"); continue;}
+        
+       if (e_cost.get_text().size() == 0) {e_cost.set_text("*required*"); continue;}
+
+        cost = std::stod(e_cost.get_text());
+        
+       if (e_size.get_text().size() == 0) {e_size.set_text("#required#"); continue;}
+        
+        gb = std::stoi(e_size.get_text());
+            
+          
+       
+        break;
+    }
+    
+    Ram *me = new Ram{e_name.get_text(), cost , gb};
+     this->store->add_option(*me);
+    
+   data->set_text(std::to_string(this->store->num_options())+ "  "+ "Peripheral Added");
+msg->set_text("New Peripheral Added!");
+
 }
+ 
 
 void Mainwin::on_other_click()
 {
 
-EntryDialog edialog{*this, "What's the part you want to buy?"};
-	edialog.set_text("Type Name here");
-	edialog.run();
-	std::string name = edialog.get_text() + " ";
+double cost;
+   
+  Gtk::Dialog dialog{"Add Other Peripherals", *this};
+    Gtk::Grid grid;
+    Gtk::Label l_name{"Name"};
+    Gtk::Entry e_name;
+    grid.attach(l_name, 0, 0, 1, 1);
+    grid.attach(e_name, 1, 0, 2, 1);
+    
+    Gtk::Label l_cost{"Cost"};
+    Gtk::Entry e_cost;
+    grid.attach(l_cost, 0, 1, 1, 1);
+    grid.attach(e_cost, 1, 1, 2, 1);
+   
+    
+    dialog.get_content_area()->add(grid);
+    
+    dialog.add_button("Insert", Gtk::RESPONSE_OK);
+    dialog.add_button("Cancel", Gtk::RESPONSE_CANCEL);
+    
+    dialog.show_all();
+    
+    
+    while (dialog.run() == Gtk::RESPONSE_OK){
+    
+       if (e_name.get_text().size() == 0) {e_name.set_text("*required*"); continue;}
+        
+       if (e_cost.get_text().size() == 0) {e_cost.set_text("*required*"); continue;}
 
-EntryDialog edialog2{*this, "Please enter cost of price" };
-  edialog2.run();
-  std::string newprice = edialog2.get_text();
-  double price = std::stod(newprice);
-
-Options *me = new Options(name,price);
+        cost = std::stod(e_cost.get_text());
+           
+       
+        break;
+    }
+    
+    Options *me = new Options(e_name.get_text(),cost);
      try {
                  this->store->add_option(*me);  
                 } catch(std::exception& e) {
@@ -400,6 +501,7 @@ Options *me = new Options(name,price);
      
 data->set_text("Number of peripherals added are " + std::to_string(this->store->num_options()));
 msg->set_text("New Peripherals Added!");
+
    
 
 }

@@ -8,9 +8,9 @@ class Ram : public Options {
     Ram(std::string name, double cost, int gb);
     Ram(std::istream& ist);
     std::string to_string() const override;
-    void save(std::ostream& ost) const override;
+    void save(std::ostream& ost)const override;
 
-     virtual ~Ram();
+    virtual ~Ram();
     
   protected:
     int _gb;

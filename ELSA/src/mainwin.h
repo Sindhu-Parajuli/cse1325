@@ -4,6 +4,7 @@
 
 
 #include "store.h"
+#include "Cpu.h"
 
 class Mainwin : public Gtk::Window {
     public:
@@ -32,6 +33,7 @@ void on_open_click();
         void on_about_click();           // Display About dialog
         void on_ram_click();
         void on_other_click();
+        void on_cpu_click();
     
         private:
         

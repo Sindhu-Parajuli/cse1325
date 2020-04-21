@@ -14,7 +14,8 @@ Store::Store(std::istream& ist){
     while(n1--) customers.push_back(Customer(ist));
     
     ist >> n2; ist.ignore(32767, '\n');
-    while(n2--) options.push_back(new Options(ist));
+     //while(n2--) options.push_back(&ist);
+    while(n2--) options.push_back(new Ram(ist));
     
     ist >> n3; ist.ignore(32767, '\n');
     while(n3--) desktops.push_back(Desktop(ist));
@@ -63,7 +64,7 @@ int Store::num_customers() {return customers.size();}
 Customer& Store::customer(int index) {return customers.at(index);}
 
 
-void Store::add_option(Options& option){options.push_back(new Options(option));}
+void Store::add_option(Options& option){options.push_back(&option);}
 
 int Store::num_options() {return options.size();}
 

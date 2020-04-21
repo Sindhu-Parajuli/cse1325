@@ -1,7 +1,7 @@
 #include "Ram.h"
 
 Ram::Ram(std::string name, double cost, int gb)
-    :Options(name,cost),_gb{gb} {}
+    :Options{name,cost},_gb{gb} {}
 
     
 
@@ -19,7 +19,7 @@ Ram::Ram(std::istream& ist) : Options(ist) {
 
 std::string Ram::to_string() const 
 {
-   return  std::to_string(_gb);
+   return  _name + std::to_string(_gb) + " GB " + " " + std::to_string(_cost);
 }
 
 
@@ -28,6 +28,11 @@ Options::save(ost);
 ost << std::to_string(_gb) << std::endl;
 
 }
+
+
+
+
+
 
 
 

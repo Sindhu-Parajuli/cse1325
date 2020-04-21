@@ -5,6 +5,7 @@
 #include "customer.h"
 #include "desktop.h"
 #include "order.h"
+#include "Ram.h"
 #include "string.h"
 
 

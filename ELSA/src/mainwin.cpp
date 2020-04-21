@@ -104,7 +104,21 @@ Gtk::MenuItem *menuitem_customers = Gtk::manage(new Gtk::MenuItem("_Customer", t
 
 Gtk::MenuItem *menuitem_peripherals = Gtk::manage(new Gtk::MenuItem("_Peripheral", true));
     menuitem_peripherals->signal_activate().connect([this] {this->on_insert_peripheral_click();});
+    Gtk::Menu *enu = Gtk::manage(new Gtk::Menu());
+    menuitem_peripherals->set_submenu(*enu);
+      
+    //menuitem_insert->set_submenu(*insertmenu);
     insertmenu->append(*menuitem_peripherals);
+   
+
+Gtk::MenuItem *menuitem_pheral = Gtk::manage(new Gtk::MenuItem("_RAM", true));
+    menuitem_pheral->signal_activate().connect([this] {this->on_ram_click();});
+    enu->append(*menuitem_pheral);
+
+Gtk::MenuItem *menuitem_periphera = Gtk::manage(new Gtk::MenuItem("_Other", true));
+    menuitem_periphera->signal_activate().connect([this] {this->on_other_click();});
+    enu->append(*menuitem_periphera);
+
 
 Gtk::MenuItem *menuitem_desktops = Gtk::manage(new Gtk::MenuItem("_Desktop", true));
     menuitem_desktops->signal_activate().connect([this] {this->on_insert_desktop_click();});
@@ -253,33 +267,117 @@ dialog.set_filename("untitled.elsa");
 
 
 void Mainwin::on_insert_customer_click() {
-EntryDialog edialog{*this, "Customer Name"};
-	edialog.set_text("Name");
-	edialog.run();
-	std::string name = edialog.get_text() + " , ";
-	
-	EntryDialog edialog2{*this, "Phone number"};
-	edialog2.set_text("Phone");
-	edialog2.run();
-	std::string phone = edialog2.get_text()+ " , ";
+Gtk::Dialog dialog{"Insert Customer", *this};
 
-        EntryDialog edialog3{*this, "Email ...@..com"};
-	edialog3.set_text("email");
-	edialog3.run();
-	std::string email = edialog3.get_text() + " . ";
-	
-    Customer customer{name, phone, email};
+    Gtk::Grid grid;
 
-    Customer *me = new Customer(name,phone,email);
+    Gtk::Label l_name{"Name"};
+    Gtk::Entry e_name;
+    grid.attach(l_name, 0, 0, 1, 1);
+    grid.attach(e_name, 1, 0, 2, 1);
+
+
+    Gtk::Label l_phone{"Phone"};
+    Gtk::Entry e_phone;
+    grid.attach(l_phone, 0, 1, 1, 1);
+    grid.attach(e_phone, 1, 1, 2, 1);
+
+    Gtk::Label l_email{"Email"};
+    Gtk::Entry e_email;
+    grid.attach(l_email, 0, 2, 1, 1);
+    grid.attach(e_email, 1, 2, 2, 1);
+
+dialog.get_content_area()->add(grid);
+
+    dialog.add_button("Insert",Gtk::RESPONSE_OK );
+    dialog.add_button("Cancel", Gtk::RESPONSE_CANCEL);
+    int response;
+
+    dialog.show_all();
+
+    while((response = dialog.run()) == Gtk::RESPONSE_OK) {
+
+        if (e_name.get_text().size() == 0) {e_name.set_text("*required*"); continue;}
+        if (e_phone.get_text().size() == 0) {e_phone.set_text("*required*"); continue;}
+        if (e_email.get_text().size() == 0) {e_email.set_text("*required*"); continue;}
+
+
+ Customer *me = new Customer{e_name.get_text(), e_phone.get_text(), e_email.get_text()};
+
     this->store->add_customer(*me);
      
      data->set_text(std::to_string(this->store->num_customers())+ "  "+ "Customer Added");
 msg->set_text("New Customer Added!");
+break;
+
+}       
     
 }
 
-
 void Mainwin::on_insert_peripheral_click() {
+/*
+EntryDialog edialog{*this, "What's the part you want to buy?"};
+	edialog.set_text("Type Name here");
+	edialog.run();
+	std::string name = edialog.get_text() + " ";
+
+EntryDialog edialog2{*this, "Please enter cost of price" };
+  edialog2.run();
+  std::string newprice = edialog2.get_text();
+  double price = std::stod(newprice);
+
+Options *me = new Options(name,price);
+     try {
+                 this->store->add_option(*me);  
+                } catch(std::exception& e) {
+                    std::cerr << "#### INVALID OPTION ####\n\n";
+                }
+    
+    
+     
+data->set_text("Number of peripherals added are " + std::to_string(this->store->num_options()));
+msg->set_text("New Peripherals Added!");
+*/    
+}
+
+
+void Mainwin::on_ram_click()
+{
+
+EntryDialog edialog{*this, "What's the part you want to buy?"};
+	edialog.set_text("Type Name here");
+	edialog.run();
+	std::string name = edialog.get_text() + " ";
+
+
+EntryDialog edialog2{*this, "Please enter cost of price" };
+  edialog2.run();
+  std::string newprice = edialog2.get_text();
+  double price = std::stod(newprice);
+
+
+EntryDialog edialog3{*this, "Please enter memory of RAM" };
+  edialog3.run();
+  std::string gbs = edialog3.get_text();
+  int gb  = std::stoi(gbs);
+
+
+Options *me = new Ram(name,price,gb);
+     try {
+                 this->store->add_option(*me);  
+                } catch(std::exception& e) {
+                    std::cerr << "#### INVALID OPTION ####\n\n";
+                }
+    
+    
+     
+data->set_text("Number of peripherals added are " + std::to_string(this->store->num_options()));
+msg->set_text("New Peripherals Added!");
+   
+}
+
+void Mainwin::on_other_click()
+{
 
 EntryDialog edialog{*this, "What's the part you want to buy?"};
 	edialog.set_text("Type Name here");
@@ -300,9 +398,10 @@ Options *me = new Options(name,price);
     
     
      
- data->set_text("Number of peripherals added are " + std::to_string(this->store->num_options()));
+data->set_text("Number of peripherals added are " + std::to_string(this->store->num_options()));
 msg->set_text("New Peripherals Added!");
-    
+   
+
 }
 
 	

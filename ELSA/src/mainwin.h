@@ -30,7 +30,8 @@ void on_open_click();
         void on_insert_customer_click();
         void on_easter_egg_click();
         void on_about_click();           // Display About dialog
-
+        void on_ram_click();
+        void on_other_click();
     
         private:
         

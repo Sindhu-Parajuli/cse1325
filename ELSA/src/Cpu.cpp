@@ -1,7 +1,7 @@
 #include "Cpu.h"
 
 Cpu::Cpu(std::string name, double cost, int gb)
-    :Options(name,cost),_gb{gb} {}
+    :Options{name,cost},_gb{gb} {}
 
     
 
@@ -19,7 +19,7 @@ Cpu::Cpu(std::istream& ist) : Options(ist) {
 
 std::string Cpu::to_string() const 
 {
-   return  std::to_string(_gb);
+  return  _name + std::to_string(_gb) + " GB " + " " + std::to_string(_cost);
 }
 
 

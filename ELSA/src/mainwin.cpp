@@ -347,53 +347,58 @@ msg->set_text("New Peripherals Added!");
 
 void Mainwin::on_cpu_click()
 { 
-
-/*
- Gtk::Dialog dialog{"ADD CPU", *this};
-
+double cost;
+    int gb;
+  Gtk::Dialog dialog{"Add CPU", *this};
     Gtk::Grid grid;
-
-    Gtk::Label l_name{"Name of CPU"};
+    Gtk::Label l_name{"Name"};
     Gtk::Entry e_name;
     grid.attach(l_name, 0, 0, 1, 1);
     grid.attach(e_name, 1, 0, 2, 1);
-
-
-    Gtk::Label l_price{"Cost of CPU"};
-    Gtk::Entry e_price;
-    grid.attach(l_price, 0, 1, 1, 1);
-    grid.attach(e_price, 1, 1, 2, 1);
-
-    Gtk::Label l_gb{"Memory in gb"};
-    Gtk::Entry e_gb;
-    grid.attach(l_gb, 0, 2, 1, 1);
-    grid.attach(e_gb, 1, 2, 2, 1);
-
-dialog.get_content_area()->add(grid);
-
-    dialog.add_button("Insert",Gtk::RESPONSE_OK );
+    
+    Gtk::Label l_cost{"Cost"};
+    Gtk::Entry e_cost;
+    grid.attach(l_cost, 0, 1, 1, 1);
+    grid.attach(e_cost, 1, 1, 2, 1);
+    
+    Gtk::Label l_size{"Size in GB"};
+    Gtk::Entry e_size;
+    grid.attach(l_size, 0, 2, 1, 1);
+    grid.attach(e_size, 1, 2, 2, 1);
+    
+    dialog.get_content_area()->add(grid);
+    
+    dialog.add_button("Insert", Gtk::RESPONSE_OK);
     dialog.add_button("Cancel", Gtk::RESPONSE_CANCEL);
-    int response;
-
+    
     dialog.show_all();
+    
+    
+    while (dialog.run() == Gtk::RESPONSE_OK){
+    
+       if (e_name.get_text().size() == 0) {e_name.set_text("*required*"); continue;}
+        
+       if (e_cost.get_text().size() == 0) {e_cost.set_text("*required*"); continue;}
 
-    while((response = dialog.run()) == Gtk::RESPONSE_OK) {
+        cost = std::stod(e_cost.get_text());
+        
+       if (e_size.get_text().size() == 0) {e_size.set_text("#required#"); continue;}
+        
+        gb = std::stoi(e_size.get_text());
+            
+          
+       
+        break;
+    }
+    
+    Cpu *me = new Cpu{e_name.get_text(), cost , gb};
+     this->store->add_option(*me);
+    
+   data->set_text(std::to_string(this->store->num_options())+ "  "+ "Peripheral Added");
+msg->set_text("New Peripheral Added!");
 
-        if (e_name.get_text().size() == 0) {e_name.set_text("*required*"); continue;}
-        if (e_price.get_text().size() == 0) {e_price.set_text("*required*"); continue;}
-        if (e_gb.get_text().size() == 0) {e_gb.set_text("*required*"); continue;}
 
 
- Options *me = new Cpu{e_name.get_text(), price, gb};
-
-    this->store->add_option(*me);
-     
-     data->set_text(std::to_string(this->store->num_options())+ "  "+ "CPU Added");
-msg->set_text("New CPU Added!");
-break;
-
-}
-*/
 }
 
 

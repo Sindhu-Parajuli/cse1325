@@ -7,6 +7,7 @@
 #include "order.h"
 #include "Ram.h"
 #include "Cpu.h"
+#include "Disk.h"
 
 Options::Options(std::string name, double cost)
     : _name{name}, _cost{cost} {}

@@ -1,5 +1,6 @@
 #include "mainwin.h"
 #include "entrydialog.h"
+#include "Disk.h"
 #include <iostream>
 #include <sstream>
 #include <fstream> // for std::cerr logging
@@ -123,6 +124,10 @@ Gtk::MenuItem *menuitem_phe = Gtk::manage(new Gtk::MenuItem("_CPU", true));
 Gtk::MenuItem *menuitem_periphera = Gtk::manage(new Gtk::MenuItem("_Other", true));
     menuitem_periphera->signal_activate().connect([this] {this->on_other_click();});
     enu->append(*menuitem_periphera);
+
+Gtk::MenuItem *menuitem_peripher = Gtk::manage(new Gtk::MenuItem("_Disk", true));
+    menuitem_peripher->signal_activate().connect([this] {this->on_disk_click();});
+    enu->append(*menuitem_peripher);
 
 
 Gtk::MenuItem *menuitem_desktops = Gtk::manage(new Gtk::MenuItem("_Desktop", true));
@@ -401,6 +406,65 @@ msg->set_text("New Peripheral Added!");
 
 }
 
+void Mainwin::on_disk_click()
+{
+
+double cost;
+  int gb;
+  Gtk::Dialog dialog{"Add Disk", *this};
+    Gtk::Grid grid;
+    Gtk::Label l_name{"Name"};
+    Gtk::Entry e_name;
+    grid.attach(l_name, 0, 0, 1, 1);
+    grid.attach(e_name, 1, 0, 2, 1);
+    
+    Gtk::Label l_cost{"Cost"};
+    Gtk::Entry e_cost;
+    grid.attach(l_cost, 0, 1, 1, 1);
+    grid.attach(e_cost, 1, 1, 2, 1);
+    
+    Gtk::Label l_gb{"Size in GB"};
+    Gtk::Entry e_gb;
+    grid.attach(l_gb, 0, 2, 1, 1);
+    grid.attach(e_gb, 1, 2, 2, 1);
+    
+    dialog.get_content_area()->add(grid);
+    
+    dialog.add_button("Insert", Gtk::RESPONSE_OK);
+    dialog.add_button("Cancel", Gtk::RESPONSE_CANCEL);
+    
+    dialog.show_all();
+    
+    
+    while (dialog.run() == Gtk::RESPONSE_OK){
+    
+       if (e_name.get_text().size() == 0) {e_name.set_text("*required*"); continue;}
+        
+       if (e_cost.get_text().size() == 0) {e_cost.set_text("*required*"); continue;}
+
+        cost = std::stod(e_cost.get_text());
+        
+       if (e_gb.get_text().size() == 0) {e_gb.set_text("#required#"); continue;}
+        
+        gb = std::stoi(e_gb.get_text());
+            
+          
+       
+        break;
+    }
+    
+    Disk *me = new Disk{e_name.get_text(), cost , gb};
+     this->store->add_option(*me);
+    
+ data->set_text(std::to_string(this->store->num_options())+ "  "+ "Disk Added");
+msg->set_text("New Disk Added!");
+
+
+
+}
+
+
+
 
 void Mainwin::on_ram_click()
 {
@@ -501,7 +565,12 @@ double cost;
                 } catch(std::exception& e) {
                     std::cerr << "#### INVALID OPTION ####\n\n";
                 }
-    
+
+
+
+
+
+
     
      
 data->set_text("Number of peripherals added are " + std::to_string(this->store->num_options()));

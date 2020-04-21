@@ -3,8 +3,8 @@ GTKFLAGS = `/usr/bin/pkg-config gtkmm-3.0 --cflags --libs`
 
 all:mainwin
 
-mainwin: main.o mainwin.o customer.o store.o options.o desktop.o order.o entrydialog.o Ram.o Cpu.o *.h
-	$(CXX) $(CXXFLAGS) main.o mainwin.o customer.o store.o options.o desktop.o order.o Ram.o Cpu.o entrydialog.o $(GTKFLAGS) -o store
+mainwin: main.o mainwin.o customer.o store.o options.o desktop.o order.o entrydialog.o Ram.o Cpu.o Disk.o *.h
+	$(CXX) $(CXXFLAGS) main.o mainwin.o customer.o store.o options.o desktop.o order.o Ram.o Cpu.o entrydialog.o Disk.o $(GTKFLAGS) -o store
 
 main.o: main.cpp
 	$(CXX) $(CXXFLAGS) -c main.cpp $(GTKFLAGS) -o main.o
@@ -29,6 +29,8 @@ Ram.o: Ram.cpp *.h
 	$(CXX) $(CXXFLAGS) -c Ram.cpp -o Ram.o
 Cpu.o : Cpu.cpp *.h
 	$(CXX) $(CXXFLAGS) -c Cpu.cpp -o Cpu.o
+Disk.o : Disk.cpp *.h
+	$(CXX) $(CXXFLAGS) -c Disk.cpp -o Disk.o
 
 
 clean:

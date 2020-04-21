@@ -19,7 +19,7 @@ Ram::Ram(std::istream& ist) : Options(ist) {
 
 std::string Ram::to_string() const 
 {
-   return  _name + std::to_string(_gb) + " GB " + " " + std::to_string(_cost);
+    return  std::to_string(_gb) + " GB " + " " + _name + " , " +std::to_string(_cost);
 }
 
 

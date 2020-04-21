@@ -675,28 +675,28 @@ void Mainwin::on_easter_egg_click() {
     c = Customer{"Tuck and Roll", "817-UFI-RED2", "circus@bugs.life"};     store->add_customer(c);
     c = Customer{"Tiana", "817-NOG-RIMM", "princess@lily.pad"};            store->add_customer(c);
 
-    Options o{"CPU: 2.6 GHz Xeon 6126T", 2423.47};         store->add_option(o);
-    o = Options{"CPU: 2.4 GHz Core i7-8565U", 388.0};      store->add_option(o);
-    o = Options{"CPU: 2.2 GHz AMD Opteron", 37.71};        store->add_option(o);
-    o = Options{"CPU: 300 MHz AM3351BZCEA30R ARM", 11.03}; store->add_option(o);
-    o = Options{"CPU: 240 MHz ColdFire MCF5", 17.33};      store->add_option(o);
+    Options* o = new Options{"CPU: 2.6 GHz Xeon 6126T", 2423.47};         store->add_option(*o);
+    o = new Options{"CPU: 2.4 GHz Core i7-8565U", 388.0};      store->add_option(*o);
+    o = new Options{"CPU: 2.2 GHz AMD Opteron", 37.71};        store->add_option(*o);
+    o = new Options{"CPU: 300 MHz AM3351BZCEA30R ARM", 11.03}; store->add_option(*o);
+    o = new Options{"CPU: 240 MHz ColdFire MCF5", 17.33};      store->add_option(*o);
 
 
-    o = Options{"2 GB RAM", 17.76};                        store->add_option(o);
-    o = Options{"4 GB RAM", 22.95};                        store->add_option(o);
-    o = Options{"8 GB RAM", 34.99};                        store->add_option(o);
-    o = Options{"16 GB RAM", 92.99};                       store->add_option(o);
-    o = Options{"32 GB RAM", 134.96};                      store->add_option(o);
-    o = Options{"64 GB RAM", 319.99};                      store->add_option(o);
+    o = new Options{"2 GB RAM", 17.76};                        store->add_option(*o);
+    o = new Options{"4 GB RAM", 22.95};                        store->add_option(*o);
+    o = new Options{"8 GB RAM", 34.99};                        store->add_option(*o);
+    o = new Options{"16 GB RAM", 92.99};                       store->add_option(*o);
+    o = new Options{"32 GB RAM", 134.96};                      store->add_option(*o);
+    o = new Options{"64 GB RAM", 319.99};                      store->add_option(*o);
 
-    o = Options{"0.5 TB SSD", 79.99};                      store->add_option(o);
-    o = Options{"1 TB SSD", 109.99};                       store->add_option(o);
-    o = Options{"2 TB SSD", 229.99};                       store->add_option(o);
-    o = Options{"4 TB SSD", 599.99};                       store->add_option(o);
+    o = new Options{"0.5 TB SSD", 79.99};                      store->add_option(*o);
+    o = new Options{"1 TB SSD", 109.99};                       store->add_option(*o);
+    o = new Options{"2 TB SSD", 229.99};                       store->add_option(*o);
+    o = new Options{"4 TB SSD", 599.99};                       store->add_option(*o);
 
-    o = Options{"1 TB PC Disk", 44.83};                    store->add_option(o);
-    o = Options{"2 TB Hybrid Disk", 59.99};                store->add_option(o);
-    o = Options{"4 TB Hybrid Disk", 93.98};                store->add_option(o);
+    o = new Options{"1 TB PC Disk", 44.83};                    store->add_option(*o);
+    o = new Options{"2 TB Hybrid Disk", 59.99};                store->add_option(*o);
+    o = new Options{"4 TB Hybrid Disk", 93.98};                store->add_option(*o);
 
     int desktop = store->new_desktop();
     store->add_option(0, desktop);

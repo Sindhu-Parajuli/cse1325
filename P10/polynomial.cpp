@@ -1,5 +1,8 @@
 #include "polynomial.h"
 #include <cmath>
+#include <mutex>
+
+std::mutex m;
 
 Polynomial::Polynomial() { }
 Polynomial::Polynomial(std::istream& ist) {

@@ -1,5 +1,6 @@
 #include "polynomial.h"
 #include <cmath>
+#include <thread>
 
 Polynomial::Polynomial() { }
 Polynomial::Polynomial(std::istream& ist) {

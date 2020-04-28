@@ -1,0 +1,70 @@
+QUESTION 1: Which value of slices did you select for your machine to solve the polynomial with 1 thread with at least a 30 second runtime: 
+- 129887000
+
+
+QUESTION 2: Provide the output of ``time polyb nn`` (or the improved version in the lecture video, if you prefer) for the following values of nn threads shown below:
+
+Example Timing:
+
+real	0m22.551s
+user	0m22.524s
+sys	0m0.012s
+
+
+YOUR Timing:
+
+Without threads:
+real	0m31.733s
+user	0m31.683s
+sys	0m0.000s
+
+
+With 2 threads:
+real	0m16.781s
+user	0m32.662s
+sys	0m0.000s
+
+
+With 4 threads:
+real	0m9.748s
+user	0m37.242s
+sys	0m0.000s
+
+
+With 6 threads:
+real	0m7.261s
+user	0m41.872s
+sys	0m0.008s
+
+
+
+With 8 threads:
+real	0m6.666s
+user	0m51.652s
+sys	0m0.118s
+
+
+With 12 threads:
+real	0m6.467s
+user	0m48.217s
+sys	0m0.045s
+
+
+
+With 24 threads:
+real	0m6.277s
+user	0m49.735s
+sys	0m0.054s
+
+
+QUESTION 3: Does adding more threads continue to speed up the program? Do more threads ever slow down the program slightly?  Why or why not?
+- My laptop has Intel(R) i5-8250U core, and I allocated 8 processors for my vm. Running more threads did not slow down the program instead i got results faster with increasing threads. So, threads did not slow down the program. More threads can fully utilize the CPU resource simultaneously than a single threaded program. 
+
+
+QUESTION 4: Does adding more threads increase the "system load", or is it constant regardless of the number of threads?  Why?
+- When adding more threads i noticed my cpu consuming more power, as the fan was spinning more and making a grinding like noise to run the threads without collapsing.I checked with 48 threads, and received only a difference of some milliseconds compared to 24 threads. I think it is because of the amount of work added on to the processor to be processed simultaneosly increasing system load.
+
+
+
+
+

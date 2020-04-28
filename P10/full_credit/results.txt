@@ -58,11 +58,11 @@ sys	0m0.054s
 
 
 QUESTION 3: Does adding more threads continue to speed up the program? Do more threads ever slow down the program slightly?  Why or why not?
-- My laptop has i-5 core, and I allocated 3 processors for my vm. Running through 2,4,8 i got similar timings whereas moving to 12 I got the result faster by 2 seconds. So, threads did not slow down the program. 
+- My laptop has i-5 core, and I allocated 8 processors for my vm. Running more threads did not slow down the program instead i got results faster with increasing threads. So, threads did not slow down the program. More threads can fully utilize the CPU resource simultaneously than a single threaded program. 
 
 
 QUESTION 4: Does adding more threads increase the "system load", or is it constant regardless of the number of threads?  Why?
-- When adding more threads i noticed my cpu consuming more power, as the fan was spinning more and making a grinding like noise to run the threads without collapsing.I checked with 50 threads, and received only a difference of some milliseconds compared to 24 threads.  
+- When adding more threads i noticed my cpu consuming more power, as the fan was spinning more and making a grinding like noise to run the threads without collapsing.I checked with 48 threads, and received only a difference of some milliseconds compared to 24 threads. I think it is because of the amount of work added on to the processor to be processed simultaneosly increasing system load.
 
 
 

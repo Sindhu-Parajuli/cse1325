@@ -14,57 +14,47 @@ sys	0m0.012s
 YOUR Timing:
 
 Without threads:
-real	0m31.988s
-user	0m31.940s
-sys	0m0.008s
+real	0m31.733s
+user	0m31.683s
+sys	0m0.000s
 
 
 With 2 threads:
-real	0m16.405s
-user	0m31.942s
-sys	0m0.016s
+real	0m16.781s
+user	0m32.662s
+sys	0m0.000s
 
 
 With 4 threads:
-
-real	0m11.018s
-user	0m32.436s
-sys	0m0.004s
-
-
-
+real	0m9.748s
+user	0m37.242s
+sys	0m0.000s
 
 
 With 6 threads:
-real	0m11.091s
-user	0m33.078s
-sys	0m0.032s
+real	0m7.261s
+user	0m41.872s
+sys	0m0.008s
 
 
 
 With 8 threads:
-real	0m11.019s
-user	0m32.846s
-sys	0m0.008s
-
-
+real	0m6.666s
+user	0m51.652s
+sys	0m0.118s
 
 
 With 12 threads:
-real	0m10.893s
-user	0m32.587s
-sys	0m0.008s
-
+real	0m6.467s
+user	0m48.217s
+sys	0m0.045s
 
 
 
 With 24 threads:
-real	0m10.952s
-user	0m32.793s
-sys	0m0.032s
-
-
-
+real	0m6.277s
+user	0m49.735s
+sys	0m0.054s
 
 
 QUESTION 3: Does adding more threads continue to speed up the program? Do more threads ever slow down the program slightly?  Why or why not?

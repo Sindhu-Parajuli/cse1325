@@ -72,7 +72,7 @@ QUESTION 3: Does adding more threads continue to speed up the program? Do more t
 
 
 QUESTION 4: Does adding more threads increase the "system load", or is it constant regardless of the number of threads?  Why?
-- When adding more threads i noticed my cpu consuming more power, as the fan was spinning more and making a grinding like noise to run the threads without collapsing. 
+- When adding more threads i noticed my cpu consuming more power, as the fan was spinning more and making a grinding like noise to run the threads without collapsing.I checked with 50 threads, and received only a difference of some milliseconds compared to 24 threads.  
 
 
 

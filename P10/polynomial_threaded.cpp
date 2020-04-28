@@ -1,6 +1,8 @@
 #include "polynomial.h"
 #include <cmath>
 #include <thread>
+#include <mutex>
+std::mutex m;
 
 Polynomial::Polynomial() { }
 Polynomial::Polynomial(std::istream& ist) {
@@ -21,19 +23,26 @@ double Polynomial::operator()(double x) {
     return y;
 }
 
-// FULL CREDIT
-// Modify solve and solve_recursive to split the range [min,max]
-//   into distinct ranges [min, min+(max-min)/slices] ... [max-(max-min)/slices, max]
-//   and run solve_recursive once per range, **each as a thread**
-// Then complete the questionaire in file results.txt and commit with your code
-
-// Clear the roots and invoke recursive solution search
-//   nthreads is the number of threads requested
-//   tid is a thread id - useful for logger.h messages
 void Polynomial::solve(double min, double max, int nthreads, double slices, double precision) {
+     
+Polynomial& f = *this;
     _roots = {};
-    solve_recursive(min, max, 1, slices, precision);
+    std::thread t[nthreads];
+    for(int i=0; i<nthreads; ++i){
+   //[min, min+(max-min)/slices] ... [max-(max-min)/slices, max]
+  t[i]=std::thread([=]{this->solve_recursive(min, max, 1, slices, precision,1);});
+   
+     
+      
 }
+
+ for (int i = 0; i < nthreads; ++i) t[i].join();
+
+}
+
+
+
+
 // (Internal) recursive search for polynomial solutions
 void Polynomial::solve_recursive(double min, double max, int tid, double slices, double precision, int recursions) {
     Polynomial& f = *this;
@@ -49,7 +58,9 @@ void Polynomial::solve_recursive(double min, double max, int tid, double slices,
             if((abs(f(x1+x2)/2) > precision) && ((x2 - x1) > precision) && (recursions < 20)) {
                 solve_recursive(x1, x2, tid, std::min(slices, (x2-x1)/precision), precision, recursions+1); // recurse for more precision
             } else {
+                  m.lock();
                 _roots.push_back((x1+x2)/2);
+                 m.unlock();
             }
         }
         x1 = x2; 

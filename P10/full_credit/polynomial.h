@@ -2,7 +2,7 @@
 #include <vector>
 #include <iostream>
 #include "term.h"
-//#include <mutex>
+#include <mutex>
 class Polynomial {
   public:
     Polynomial();
@@ -13,6 +13,7 @@ class Polynomial {
     double operator()(double x);   // Evaluate the polynomial for x
     void solve(double min, double max, int nthreads = 1, 
                double slices = 129887000, double precision = 0.00001);
+                               
     std::vector<double> roots();
     friend std::ostream& operator<<(std::ostream& ost, const Polynomial& polynomial);
   private:

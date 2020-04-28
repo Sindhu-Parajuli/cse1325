@@ -14,59 +14,65 @@ sys	0m0.012s
 YOUR Timing:
 
 Without threads:
-
-
+real	0m31.988s
+user	0m31.940s
+sys	0m0.008s
 
 
 With 2 threads:
-
-
-
-
+real	0m16.405s
+user	0m31.942s
+sys	0m0.016s
 
 
 With 4 threads:
 
+real	0m11.018s
+user	0m32.436s
+sys	0m0.004s
 
 
 
 
 
 With 6 threads:
-
-
-
+real	0m11.091s
+user	0m33.078s
+sys	0m0.032s
 
 
 
 With 8 threads:
-
-
+real	0m11.019s
+user	0m32.846s
+sys	0m0.008s
 
 
 
 
 With 12 threads:
-
-
+real	0m10.893s
+user	0m32.587s
+sys	0m0.008s
 
 
 
 
 With 24 threads:
+real	0m10.952s
+user	0m32.793s
+sys	0m0.032s
 
 
 
 
 
 QUESTION 3: Does adding more threads continue to speed up the program? Do more threads ever slow down the program slightly?  Why or why not?
-
-
-
+- My laptop has i-5 core, and I allocated 3 processors for my vm. Running through 2,4,8 i got similar timings whereas moving to 12 I got the result faster by 2 seconds. So, threads did not slow down the program. 
 
 
 QUESTION 4: Does adding more threads increase the "system load", or is it constant regardless of the number of threads?  Why?
-
+- When adding more threads i noticed my cpu consuming more power, as the fan was spinning more and making a grinding like noise to run the threads without collapsing. 
 
 
 

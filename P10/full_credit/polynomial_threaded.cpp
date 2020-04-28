@@ -24,17 +24,25 @@ double Polynomial::operator()(double x) {
 }
 
 void Polynomial::solve(double min, double max, int nthreads, double slices, double precision) {
-     
+_roots = {};
+slices = slices/nthreads;
+double values=((max-min)/(nthreads));
+     double threadmin,threadmax;
+     threadmin=min;
+     threadmax= threadmin +values;
+
+
 Polynomial& f = *this;
-    _roots = {};
+    
     std::thread t[nthreads];
-    for(int i=0; i<nthreads; ++i){
-   //[min, min+(max-min)/slices] ... [max-(max-min)/slices, max]
-  t[i]=std::thread([=]{this->solve_recursive(min, max, 1, slices, precision,1);});
-   
-     
-      
+
+for(int i=0; i<nthreads; i++){ 
+t[i]=std::thread([=]{this->solve_recursive(threadmin, threadmax, 1, slices, precision);});
+threadmin=threadmax;
+threadmax=threadmin+values;        
 }
+
+
 
  for (int i = 0; i < nthreads; ++i) t[i].join();
 

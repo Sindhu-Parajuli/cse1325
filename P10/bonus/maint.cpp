@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iomanip>
 #include <chrono>
+#include <thread>
 
 int main() {
     // BONUS: Modify main() to load and solve multiple polynomials
@@ -11,12 +12,14 @@ int main() {
     //    preserve the threadless build, handle that situation, too.
 
     // Working variables
-    double c, e, x;
-    int nthreads = 1; // number of threads
+    double c, e, x,p;
+    int nthreads; // number of threads
     Polynomial f;
     int choice;
-
+    std::vector<std::thread*> threads;
+       //std::cin >> nthreads;
     // Load a default polynomial if available
+ 
     std::string filename = "untitled.poly";
     try {
         std::ifstream ifs{filename};
@@ -50,7 +53,7 @@ int main() {
         std::cin >> choice; std::cin.ignore(32767, '\n');
 
         if(choice == 1) {
-
+            do{
             std::cout << "Filename (blank to enter by hand): ";
             std::getline(std::cin, filename);
             if(filename.empty()) {
@@ -60,16 +63,28 @@ int main() {
                     std::cin >> c >> e;
                     f.add_term(c, e);
                 } while(e != 0.0);
+std::cout << "Enter Y or y if you want to load more!";
+                  std::cin>>p;
+                  
+
+                  
             } else {
                 try {
                     std::ifstream ifs{filename};
                     f = Polynomial(ifs);
                     std::cout << "Loaded " << filename << ": " << f << std::endl;
+
                 } catch(std::exception& e) {
                     std::cerr << "Could not load " << filename << ": " 
                       << e.what() << std::endl;
-                }
-            }
+}
+
+             }   
+                
+           } while(p =='Y' || p == 'y');   
+
+
+
         } else if(choice == 2) {
             std::cout << "Filename: ";
             std::getline(std::cin, filename);
@@ -93,10 +108,22 @@ int main() {
             std::cout << "Solve between min max (== exits): ";
             std::cin >> c >> e; if(c >= e) break;
             std::cout << "Number of threads: ";
-            std::cin >> nthreads;
+           
             LOG("   MAIN: Ready to solve");
             auto start = std::chrono::high_resolution_clock::now(); 
-            f.solve(c, e, nthreads);
+            Polynomial& f = *this;
+            for(int i=0 ; i<nthreads; i++)
+             {
+               threads.push_back(new std::thread{[=]{this->solve(c,e,nthreads);}});
+                     
+             }
+               
+             for(int i=0 ; i<nthreads ; i++)
+             {
+               threads[i]->join();
+              }
+
+            //f.solve(c, e, nthreads);
             auto stop = std::chrono::high_resolution_clock::now();
             LOG("   MAIN: Solved!");
             std::cout << "Elapsed time: " << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " seconds\n";
